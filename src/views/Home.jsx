@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as trendingAPI from "../services/movie-api";
 
-//Не забыть разобраться как использовать путь на 19 строке
+//Не забыть разобраться как использовать путь
 // useRouteMatch in v6?
 
 function Home() {
-  const [trends, setTrends] = useState({});
+  const [trends, setTrends] = useState([]);
   useEffect(() => {
     trendingAPI.fetchTrending().then((response) => setTrends(response.results));
   }, []);
