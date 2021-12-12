@@ -1,23 +1,32 @@
 import s from "./SearchMovie.module.css";
-//import React, { useState, useEffect } from "react";
-//import * as searchAPI from "../../services/movie-api";
+import React, { useState, useEffect } from "react";
+import * as searchAPI from "../../services/movie-api";
+
 export default function SearchMovie() {
-  // const [value, setValue] = useState("");
-  // const [movie, setMovie] = useState([]);
-
-  // const onChange = (e) => {
-  //   setValue(e.currentTarget.value.toLowerCase());
-  // };
-
-  //   useEffect(() => {
-  //     searchAPI
-  //       .fetchSearchMovies(value)
-  //       .then((response) => setMovie(response.results));
-  //   });
+  const [query, setQuery] = useState("");
+  const [movie, setMovie] = useState([]);
 
   const onChange = (e) => {
-    console.log(e.currentTarget.value.toLowerCase());
+    setQuery(e.target.value.toLowerCase());
   };
+
+  useEffect(() => {
+    if (query === "") {
+      return;
+    }
+    searchAPI.fetchSearchMovies(query).then((response) => {
+      if (response.results !== []) {
+        console.log(response);
+        setMovie(response);
+      }
+      return <p>Not match for reaquest {query}</p>;
+    });
+  });
+  console.log(movie);
+
+  // const onChange = (e) => {
+  //   console.log(e.currentTarget.value.toLowerCase());
+  // };
 
   return (
     <header className={s.Searchbar}>

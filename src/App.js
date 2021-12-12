@@ -1,7 +1,7 @@
 import "./App.css";
 import { Home } from "./views/Home";
 import Movie from "./views/Movie";
-import { MovieDetails } from "./views/MovieDetailsPage";
+import MovieDetails from "./views/MovieDetailsPage";
 //import NotFoundView from "./views/NotFoundView";
 
 import {

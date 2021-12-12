@@ -1,12 +1,19 @@
-import { Route, useParams, NavLink, Routes } from "react-router-dom";
+import {
+  Route,
+  useParams,
+  NavLink,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import { useState, useEffect, Suspense, lazy } from "react";
 import * as detailsAPI from "../services/movie-api";
-const { Cast } = lazy(() => import("../components/Cast"));
-const { Reviews } = lazy(() => import("../components/Reviews"));
+const Cast = lazy(() => import("../components/Cast"));
+const Reviews = lazy(() => import("../components/Reviews"));
 
-function MovieDetails() {
+export default function MovieDetails() {
   const [details, setDetails] = useState(null);
   const { movieId } = useParams();
+  const navigate = useNavigate();
 
   //const { url } = useRouteMatch();
   useEffect(() => {
@@ -15,9 +22,12 @@ function MovieDetails() {
       setDetails(response);
     });
   }, [movieId]);
-
+  const onGoBack = () => {
+    navigate(-1);
+  };
   return (
     <>
+      <button onClick={onGoBack}>Go Back</button>
       {details && (
         <div>
           <h1>Movie details</h1>
@@ -56,4 +66,3 @@ function MovieDetails() {
     </>
   );
 }
-export { MovieDetails };
